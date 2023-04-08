@@ -1,5 +1,29 @@
 include <BOSL2/std.scad>
 
+hexagon_diameter = 25.98;
+hexagon_height = 22.5;
+
+// The part of the hexagon insert that protrudes from the honeycomb wall.
+hexagon_insert_outer_depth = 2.5;
+
+// HEXAGON CENTER DISTANCES
+//
+// A group of 4 adjacent hexagons looks like this:
+//
+//     C
+//   A   B
+//     D
+//
+// Where C and D are actually touching but A and B are not.
+
+// The vertical distance between the centers of hexagons C and D.
+vertical_hexagon_center_distance = 23.6;
+
+// The horizontal distance between the centers of hexagons A and B.
+horizontal_hexagon_center_distance = 40.88;
+
+m4_screw_hole_diameter = 4.2;
+
 // This value depends on your printer and its calibration,
 // This is the value the worked for my Prusa Mini+ with a 0.6mm nozzle.
 inset_hexagon_tolerance = 0.7;
