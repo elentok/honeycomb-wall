@@ -11,7 +11,7 @@ rounding = 3;
 size = [
   plier_width + wall_thickness * 2,
   plier_thickness* amount_of_pliers + wall_thickness*(amount_of_pliers + 1),
-  inset_hexagon_width
+  hexagon_plug_width
 ];
 
 plier_hole_size = [ plier_width, plier_thickness ];
@@ -19,7 +19,7 @@ plier_hole_size = [ plier_width, plier_thickness ];
 echo("Size:", size);
 
 module pliers_holder() {
-  inset_hexagon(anchor = BOTTOM + FWD);
+  hexagon_plug(anchor = BOTTOM + FWD);
 
   linear_extrude(size.z) difference() {
     rect(size, anchor = BACK, rounding = rounding);

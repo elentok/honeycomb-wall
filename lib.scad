@@ -26,22 +26,24 @@ m4_screw_hole_diameter = 4.2;
 
 // This value depends on your printer and its calibration,
 // This is the value the worked for my Prusa Mini+ with a 0.6mm nozzle.
-inset_hexagon_tolerance = 0.7;
+empty_insert_tolerance = 0.7;
 
-// HEXAGON DIMENSIONS
+// HEXAGON PLUG DIMENSIONS
+//
+// The part that goes inside the official empty insert.
 
-inset_hexagon_hole_diameter = 15.47;
-inset_hexagon_diameter = inset_hexagon_hole_diameter - inset_hexagon_tolerance;
-inset_hexagon_width = calc_hexagon_width(inset_hexagon_diameter);
-inset_hexagon_length = 10;
+empty_insert_hole_diameter = 15.47;
+hexagon_plug_diameter = empty_insert_hole_diameter - empty_insert_tolerance;
+hexagon_plug_width = calc_hexagon_width(hexagon_plug_diameter);
+hexagon_plug_length = 10;
 
-module inset_hexagon(anchor = CENTER, spin = 0, orient = UP) {
-  attachable(anchor, spin, orient, size = [
-    inset_hexagon_diameter, inset_hexagon_length,
-    inset_hexagon_width
-  ]) {
-    rotate([ 90, 0, 0 ]) linear_extrude(inset_hexagon_length, center = true)
-        hexagon(d = inset_hexagon_diameter);
+module hexagon_plug(anchor = CENTER, spin = 0, orient = UP) {
+  attachable(
+      anchor, spin, orient,
+      size =
+          [ hexagon_plug_diameter, hexagon_plug_length, hexagon_plug_width ]) {
+    rotate([ 90, 0, 0 ]) linear_extrude(hexagon_plug_length, center = true)
+        hexagon(d = hexagon_plug_diameter);
     children();
   }
 }
