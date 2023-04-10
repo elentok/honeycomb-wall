@@ -26,7 +26,7 @@ m4_screw_hole_diameter = 4.2;
 
 // This value depends on your printer and its calibration,
 // This is the value the worked for my Prusa Mini+ with a 0.6mm nozzle.
-empty_insert_tolerance = 0.7;
+empty_insert_tolerance = 0.2;
 
 // HEXAGON PLUG DIMENSIONS
 //
