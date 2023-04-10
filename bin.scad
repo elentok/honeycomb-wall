@@ -1,14 +1,14 @@
 include <./lib.scad>
 
 rounding = 5;
-wall_thickness = 2;
+wall_thickness = 1.7;
 epsilon = 0.1;
 screw_hole_diameter = m4_screw_hole_diameter;
 screwdriver_hole_diameter = 9;
 screw_hole_center_distance_from_top = hexagon_height / 2;
 
 // The amount of separators along the X axis.
-separators_x = 1;
+separators_x = 0;
 
 // The amount of separators along the Y axis.
 separators_y = 1;
@@ -21,13 +21,13 @@ spacer_height = 10;
 
 outer_size = [
   // width:
-  3 * hexagon_diameter,
+  1 * (horizontal_hexagon_center_distance + hexagon_diameter),
 
   // depth:
-  40,
+  34,
 
   // height:
-  3 * hexagon_height,
+  2 * hexagon_height,
 ];
 
 inner_size = [
@@ -45,6 +45,7 @@ cell_size = [
 ];
 
 echo("========================================");
+echo("OUTER SIZE:", outer_size);
 echo("CELL SIZE:", cell_size);
 echo("========================================");
 
@@ -69,13 +70,17 @@ module bin() {
 }
 
 module separators() {
-  for (ix = [1:separators_x]) {
-    right(ix * cell_size.x + (ix - 1) * separator_thickness)
-        left(inner_size.x / 2) separator_x();
+  if (separators_x > 0) {
+    for (ix = [1:separators_x]) {
+      right(ix * cell_size.x + (ix - 1) * separator_thickness)
+          left(inner_size.x / 2) separator_x();
+    }
   }
 
-  for (iy = [1:separators_y]) {
-    fwd(iy * cell_size.y + (iy - 1) * separator_thickness) separator_y();
+  if (separators_y > 0) {
+    for (iy = [1:separators_y]) {
+      fwd(iy * cell_size.y + (iy - 1) * separator_thickness) separator_y();
+    }
   }
 }
 
@@ -119,16 +124,20 @@ module hole_mask() {
 // The bin itself, without the holes.
 module base_bin() {
   r = [ 0, 0, rounding, rounding ];
+  ir = [ 0, 0, rounding * 0.8, rounding * 0.8 ];
 
   fwd(outer_size.y / 2) {
     // floor
-    linear_extrude(wall_thickness) rect(outer_size, rounding = r);
+    linear_extrude(wall_thickness, convexity = 4)
+        rect(outer_size, rounding = r);
 
     // walls
-    linear_extrude(outer_size.z) difference() {
-      rect(outer_size, rounding = r);
-      rect(inner_size, rounding = r);
-    }
+    rect_tube(h = outer_size.z, size = [ outer_size.x, outer_size.y ],
+              wall = wall_thickness, rounding = r, irounding = ir);
+    // linear_extrude(outer_size.z, convexity = 4) difference() {
+    //   rect(outer_size, rounding = r);
+    //   rect(inner_size, rounding = r);
+    // }
   }
 }
 
