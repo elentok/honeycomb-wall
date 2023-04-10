@@ -22,7 +22,7 @@ vertical_hexagon_center_distance = 23.6;
 // The horizontal distance between the centers of hexagons A and B.
 horizontal_hexagon_center_distance = 40.88;
 
-m4_screw_hole_diameter = 4.2;
+m4_screw_hole_diameter = 4.4;
 
 // This value depends on your printer and its calibration,
 // This is the value the worked for my Prusa Mini+ with a 0.6mm nozzle.
