@@ -11,13 +11,23 @@ screw_hole_center_distance_from_top = hexagon_height / 2;
 separators_x = 0;
 
 // The amount of separators along the Y axis.
-separators_y = 1;
+separators_y = 0;
 
 separator_thickness = 1.2;
 
 // If true, adds a spacer at the bottom so it's aligned
 include_spacer = true;
 spacer_height = 10;
+
+// For brush:
+// outer_size = [
+//   // width:
+//   40,
+//   // depth:
+//   40,
+//   // height:
+//   37,
+// ];
 
 outer_size = [
   // width:
@@ -113,11 +123,11 @@ module hole_mask() {
   up(outer_size.z - screw_hole_center_distance_from_top) {
     // screw hole
     back(epsilon) rotate([ 90, 0, 0 ])
-        cylinder(d = screw_hole_diameter, l = wall_thickness + epsilon * 2);
+        cylinder(d = screw_hole_diameter, h = wall_thickness + epsilon * 2);
 
     // screwdriver hole (so you can reach the screws on the back).
     fwd(wall_thickness + epsilon) rotate([ 90, 0, 0 ])
-        cylinder(d = screwdriver_hole_diameter, l = outer_size.y);
+        cylinder(d = screwdriver_hole_diameter, h = outer_size.y);
   }
 }
 
@@ -129,7 +139,7 @@ module base_bin() {
   fwd(outer_size.y / 2) {
     // floor
     linear_extrude(wall_thickness, convexity = 4)
-        rect(outer_size, rounding = r);
+        rect([ outer_size.x, outer_size.y ], rounding = r);
 
     // walls
     rect_tube(h = outer_size.z, size = [ outer_size.x, outer_size.y ],

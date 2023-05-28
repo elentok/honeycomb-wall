@@ -1,4 +1,5 @@
 include <BOSL2/std.scad>
+$fn = 64;
 
 hexagon_diameter = 25.98;
 hexagon_height = 22.5;
